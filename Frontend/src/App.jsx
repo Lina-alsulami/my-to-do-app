@@ -10,7 +10,7 @@ function App() {
 
   
   const fetchTasks = async () => {
-    const res = await fetch('http://localhost:3000/tasks');
+    const res = await fetch('https://my-todo-api-6owe.onrender.com/tasks');
     const data = await res.json();
     setTasks(data);
   };
