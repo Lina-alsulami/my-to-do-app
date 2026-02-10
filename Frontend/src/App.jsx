@@ -6,18 +6,18 @@ function App() {
   const [tasks, setTasks] = useState([]);
 
   
+  const API_URL = 'https://my-todo-api-6owe.onrender.com/tasks';
+
   useEffect(() => { fetchTasks(); }, []);
 
-  
   const fetchTasks = async () => {
-    const res = await fetch('https://my-todo-api-6owe.onrender.com/tasks');
+    const res = await fetch(API_URL);
     const data = await res.json();
     setTasks(data);
   };
 
-  
   const handleAdd = async (title, description) => {
-    const res = await fetch('http://localhost:3000/tasks', {
+    const res = await fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ title, description })
@@ -26,15 +26,15 @@ function App() {
     setTasks([...tasks, newTask]);
   };
 
-  
   const handleDelete = async (id) => {
-    await fetch(`http://localhost:3000/tasks/${id}`, { method: 'DELETE' });
+    // نستخدم الرابط الجديد هنا أيضاً
+    await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
     setTasks(tasks.filter(t => t.id !== id));
   };
 
-  
   const handleUpdate = async (id, currentStatus) => {
-    await fetch(`http://localhost:3000/tasks/${id}`, {
+    // نستخدم الرابط الجديد هنا أيضاً
+    await fetch(`${API_URL}/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ completed: !currentStatus })
@@ -61,7 +61,6 @@ function App() {
     </div>
   );
 }
-
 
 const styles = {
   screenCenter: {
